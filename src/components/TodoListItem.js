@@ -1,9 +1,11 @@
 import React from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 
-const TodoListItem = ({ todo, onPressTodo }) => {
+const TodoListItem = ({ todo, onPressTodo, onLongPressTodo }) => {
     return (
-        <TouchableOpacity onPress={onPressTodo}>
+        <TouchableOpacity 
+            onPress={onPressTodo}
+            onLongPress={onLongPressTodo}>
             <View style={styles.line}>
                 <Text style={[
                     styles.lineText,

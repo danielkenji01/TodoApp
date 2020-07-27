@@ -3,34 +3,29 @@ import { View, StyleSheet, Button } from 'react-native';
 import { connect } from 'react-redux';
 
 import Input from './Input';
-import { addTodo } from '../actions';
+import { addTodo, setTodoText, updateTodo } from '../actions';
 
 class TodoForm extends React.Component {
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            text: ''
-        }
-    }
-
     onChangeText(text) {
-        this.setState({
-            text
-        });
+        this.props.dispatchSetTodoText(text);
     }
 
     onPress() {
-        this.props.dispatchAddTodo(this.state.text);
-        this.setState({
-            text: ''
-        });
+        const { todo } = this.props;
+
+        if (todo.id) {
+            this.props.dispatchUpdateTodo(todo);
+            return;
+        }
+
+        const { text } = todo;
+        this.props.dispatchAddTodo(text);
+        // this.props.dispatchSetTodoText('');
     }
 
     render() {
-
-        const { text } = this.state;
+        const { text } = this.props.todo;
 
         return (
             <View style={styles.formContainer}>
@@ -70,8 +65,18 @@ const mapDispatchToProps = dispatch => {
     }
 } */
 
+const mapStateToProps = state => {
+    return {
+        todo: state.editingTodo
+    }
+};
+
 // Currying
 export default connect(
-    null,
-    {dispatchAddTodo: addTodo}
+    mapStateToProps,
+    { 
+        dispatchAddTodo: addTodo,
+        dispatchSetTodoText: setTodoText,
+        dispatchUpdateTodo: updateTodo
+    }
 )(TodoForm);
