@@ -25,7 +25,9 @@ class TodoForm extends React.Component {
     }
 
     render() {
-        const { text } = this.props.todo;
+        const { todo } = this.props;
+        const { text } = todo;
+        const isNew = todo.id === null;
 
         return (
             <View style={styles.formContainer}>
@@ -37,7 +39,7 @@ class TodoForm extends React.Component {
                 </View>
                 <View style={styles.buttonContainer}>
                     <Button 
-                        title="Adicionar"
+                        title={isNew ? "Adicionar" : "Editar"}
                         onPress={() => this.onPress()}
                     />
                 </View>
