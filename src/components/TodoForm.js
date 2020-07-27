@@ -1,9 +1,11 @@
 import React from 'react';
-import  { View, StyleSheet, Button } from 'react-native';
+import { View, StyleSheet, Button } from 'react-native';
+import { connect } from 'react-redux';
 
 import Input from './Input';
+import { addTodo } from '../actions';
 
-export default class TodoForm extends React.Component {
+class TodoForm extends React.Component {
 
     constructor(props) {
         super(props);
@@ -20,7 +22,7 @@ export default class TodoForm extends React.Component {
     }
 
     onPress() {
-        console.log(this.state.text);
+        this.props.dispatchAddTodo(this.state.text);
     }
 
     render() {
@@ -56,4 +58,17 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flex: 2
     }
-})
+});
+
+/*
+const mapDispatchToProps = dispatch => {
+    return {
+        dispatchAddTodo: text => dispatch(addTodo(text))
+    }
+} */
+
+// Currying
+export default connect(
+    null,
+    {dispatchAddTodo: addTodo}
+)(TodoForm);
