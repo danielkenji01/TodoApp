@@ -3,9 +3,11 @@ import { View, StyleSheet, Text } from 'react-native';
 
 import { connect } from 'react-redux';
 
+import TodoListItem from './TodoListItem';
+
 const TodoList = ({ todos = [] }) => (
     <View>
-        {todos.map(todo => <Text key={todo.id}>{todo.text}</Text>)}
+        {todos.map(todo => <TodoListItem key={todo.id} todo={todo} />)}
     </View>
 );
 
