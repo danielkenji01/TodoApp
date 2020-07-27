@@ -13,8 +13,9 @@ const todoListReducer = (state = [], action) => {
                 done: false
             }
             return [...state, newTodo];
-        case TOGGLE_TODO: 
+        case TOGGLE_TODO:
             const { todoId } = action;
+            console.log('toggle todo!', todoId);
             return state.map(todo => {
                 if (todo.id === todoId) {
                     return {
